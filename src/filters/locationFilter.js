@@ -1,0 +1,81 @@
+import * as Flex from "@twilio/flex-ui";
+
+
+  var workerLocationList = [];
+
+  let expression = "";
+  
+  // only get the manager list
+  export const locationFilterList = () => {
+   
+    Flex.Manager.getInstance()
+    .insightsClient.instantQuery("tr-worker")
+    .then((q) => {
+        q.on("searchResult", (items) => {
+
+          let length = Object.keys(items).length;
+          let at_least_one_worker_has_a_location = false;
+
+          for (const [key, value] of Object.entries(items)){
+            if (value.attributes.location) {
+                workerLocationList.push(value.attributes.location);
+                at_least_one_worker_has_a_location = true;
+            }
+          }
+
+          // Removing duplicates
+          workerLocationList = [...(new Set(workerLocationList))];
+   
+          // If another search is needed, make it.  Otherwise we end here.
+          if (length > 199 && at_least_one_worker_has_a_location) { 
+            
+            // Build the expression for search
+            expression = ""
+            var groupOfThirty = [];
+            var groupOfThirtyExpression = [];        
+            for (let i=0; i<workerLocationList.length/30; i++){               
+                groupOfThirty.push(workerLocationList.slice(i*30, 30*(i+1)).join(`','`));                
+                groupOfThirtyExpression.push(`and data.attributes.location NOT_IN ['${groupOfThirty[i]}']`);
+            }            
+            expression = groupOfThirtyExpression.join(' ').slice(4);
+
+            // Run the search again
+            q.search(expression).catch(() => {
+                error = "Invalid query" ;
+                console.log('Error',error);
+           });
+          }        
+        });
+
+        q.search("").catch(() => {
+            error = "Invalid query" ;
+            console.log('This is en error',error);
+        });
+    
+        
+    });
+   
+  }
+
+
+export const locationFilter = () => {
+
+    return{
+        id: 'data.attributes.location',
+        title: 'Location',
+        fieldName: 'location',
+        type: 'multiValue',
+        options: workerLocationList.sort().map(value => ({
+          value,
+          label: value,
+          default: false
+        })),
+        condition: 'IN'
+      };
+
+};
+
+
+  
+
+

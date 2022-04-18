@@ -1,31 +1,56 @@
-# Your custom Twilio Flex Plugin
+<a href="https://www.twilio.com">
+<img src="https://static0.twilio.com/marketing/bundles/marketing/img/logos/wordmark-red.svg" alt="Twilio" width="250" />
+</a>
+
+# Twilio Flex Plugins
 
 Twilio Flex Plugins allow you to customize the appearance and behavior of [Twilio Flex](https://www.twilio.com/flex). If you want to learn more about the capabilities and how to use the API, check out our [Flex documentation](https://www.twilio.com/docs/flex).
 
+
+## Plugin for customizing Teams View Filter
+
+This plugin allows you to add and customize filters on Teams View dashboard.
+
+## Requirements
+
+To deploy this plugin, you will need:
+
+- An active Twilio account with Flex provisioned. Refer to the [Flex Quickstart](https://www.twilio.com/docs/flex/quickstart/flex-basics#sign-up-for-or-sign-in-to-twilio-and-create-a-new-flex-project") to create one.
+- npm version 5.0.0 or later installed (type `npm -v` in your terminal to check)
+- Node.js [long term support(LTS) version](https://nodejs.org/en/about/releases/)(type `node -v` in your terminal to check)
+
 ## Setup
 
-Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmjs.com). We support Node >= 10.12 (and recommend the _even_ versions of Node). Afterwards, install the dependencies by running `npm install`:
+Make sure you have [Node.js](https://nodejs.org) as well as [`npm`](https://npmjs.com) installed.
+
+1.  Clone this repo:
 
 ```bash
-cd 
+https://github.com/cherylmj01/teamview-filter.git
+```
 
-# If you use npm
+2. Go to the plugin directory
+
+```bash
+cd plugin-team-views-filter
+```
+
+3. Install the dependencies
+
+```bash
 npm install
 ```
 
-Next, please install the [Twilio CLI](https://www.twilio.com/docs/twilio-cli/quickstart) by running:
+4. Run plugin on a local environment using Twilio CLI :
 
 ```bash
-brew tap twilio/brew && brew install twilio
+twilio flex:plugins:start
 ```
 
-Finally, install the [Flex Plugin extension](https://github.com/twilio-labs/plugin-flex/tree/v1-beta) for the Twilio CLI:
+5. Deploy your plugin to your Flex project using Twilio CLI:
 
 ```bash
-twilio plugins:install @twilio-labs/plugin-flex
+twilio flex:plugins:deploy --major --changelog "Notes for this version" --description "Functionality of the plugin"
 ```
 
-## Development
-
-Run `twilio flex:plugins --help` to see all the commands we currently support. For further details on Flex Plugins refer to our documentation on the [Twilio Docs](https://www.twilio.com/docs/flex/developer/plugins/cli) page.
-
+More detailed information about deploying Flex plugins can be found here: https://www.twilio.com/docs/flex/developer/plugins/cli/deploy-and-release
