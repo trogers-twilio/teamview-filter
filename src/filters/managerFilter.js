@@ -48,7 +48,7 @@ import * as Flex from "@twilio/flex-ui";
 
         q.search("").catch(() => {
             error = "Invalid query" ;
-            console.log('This is en error',error);
+            console.log('Error',error);
         });
     
         

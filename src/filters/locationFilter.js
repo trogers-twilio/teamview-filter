@@ -14,7 +14,6 @@ import * as Flex from "@twilio/flex-ui";
         q.on("searchResult", (items) => {
           let error;
           let length = Object.keys(items).length;
-          console.log('Array length is',length);
           let at_least_one_worker_has_a_location = false;
 
           for (const [key, value] of Object.entries(items)){
@@ -26,8 +25,8 @@ import * as Flex from "@twilio/flex-ui";
 
           // Removing duplicates
           workerLocationList = [...(new Set(workerLocationList))];
-          console.log('Cheryl the length is',workerLocationList  );
-          
+          // console.log('The length is',workerLocationList);
+
           // If another search is needed, make it.  Otherwise we end here.
           if (length > 199 && at_least_one_worker_has_a_location) { 
             
@@ -51,7 +50,7 @@ import * as Flex from "@twilio/flex-ui";
 
         q.search("").catch(() => {
             error = "Invalid query" ;
-            console.log('This is an error',error);
+            console.log('Error',error);
         });
     
         
