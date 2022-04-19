@@ -11,6 +11,8 @@ Twilio Flex Plugins allow you to customize the appearance and behavior of [Twili
 
 This plugin allows you to add and customize filters for filtering on managers, skills, locations on Teams View dashboard. Please refer the screenshots below : 
 
+![Plugin screenshot_1](https://github.com/cherylmj01/teamview-filter/blob/main/src/resources/locationFilter.png) 
+![Plugin screenshot_2](https://github.com/cherylmj01/teamview-filter/blob/main/src/resources/managerFilter.png) 
 
 
 ## Requirements
