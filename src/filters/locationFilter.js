@@ -12,8 +12,9 @@ import * as Flex from "@twilio/flex-ui";
     .insightsClient.instantQuery("tr-worker")
     .then((q) => {
         q.on("searchResult", (items) => {
-
+          let error;
           let length = Object.keys(items).length;
+          console.log('Array length is',length);
           let at_least_one_worker_has_a_location = false;
 
           for (const [key, value] of Object.entries(items)){
@@ -25,16 +26,17 @@ import * as Flex from "@twilio/flex-ui";
 
           // Removing duplicates
           workerLocationList = [...(new Set(workerLocationList))];
-   
+          console.log('Cheryl the length is',workerLocationList  );
+          
           // If another search is needed, make it.  Otherwise we end here.
           if (length > 199 && at_least_one_worker_has_a_location) { 
             
             // Build the expression for search
             expression = ""
             var groupOfThirty = [];
-            var groupOfThirtyExpression = [];        
-            for (let i=0; i<workerLocationList.length/30; i++){               
-                groupOfThirty.push(workerLocationList.slice(i*30, 30*(i+1)).join(`','`));                
+            var groupOfThirtyExpression = [];              
+            for (let i=0; i<workerLocationList.length/29; i++){               
+                groupOfThirty.push(workerLocationList.slice(i*29, 29*(i+1)).join(`','`));                
                 groupOfThirtyExpression.push(`and data.attributes.location NOT_IN ['${groupOfThirty[i]}']`);
             }            
             expression = groupOfThirtyExpression.join(' ').slice(4);
@@ -49,7 +51,7 @@ import * as Flex from "@twilio/flex-ui";
 
         q.search("").catch(() => {
             error = "Invalid query" ;
-            console.log('This is en error',error);
+            console.log('This is an error',error);
         });
     
         

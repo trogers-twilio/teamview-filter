@@ -11,7 +11,7 @@ import * as Flex from "@twilio/flex-ui";
     .insightsClient.instantQuery("tr-worker")
     .then((q) => {
         q.on("searchResult", (items) => {
-
+          let error;
           let length = Object.keys(items).length;
           let at_least_one_worker_has_a_manager = false;
 
@@ -32,8 +32,8 @@ import * as Flex from "@twilio/flex-ui";
             expression = ""
             var groupOfThirty = [];
             var groupOfThirtyExpression = [];        
-            for (let i=0; i<managerList.length/30; i++){               
-                groupOfThirty.push(managerList.slice(i*30, 30*(i+1)).join(`','`));                
+            for (let i=0; i<managerList.length/29; i++){               
+                groupOfThirty.push(managerList.slice(i*29, 29*(i+1)).join(`','`));                
                 groupOfThirtyExpression.push(`and data.attributes.manager NOT_IN ['${groupOfThirty[i]}']`);
             }            
             expression = groupOfThirtyExpression.join(' ').slice(4);
