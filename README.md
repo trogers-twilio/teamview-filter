@@ -9,7 +9,9 @@ Twilio Flex Plugins allow you to customize the appearance and behavior of [Twili
 
 ## Plugin for customizing Teams View Filter
 
-This plugin allows you to add and customize filters on Teams View dashboard.
+This plugin allows you to add and customize filters for filtering on managers, skills, locations on Teams View dashboard. Please refer the screenshots below : 
+
+
 
 ## Requirements
 
@@ -32,7 +34,7 @@ https://github.com/cherylmj01/teamview-filter.git
 2. Go to the plugin directory
 
 ```bash
-cd plugin-team-views-filter
+cd plugin-realtimequeueview-filter
 ```
 
 3. Install the dependencies
