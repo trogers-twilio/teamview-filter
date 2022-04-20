@@ -31,7 +31,7 @@ import * as Flex from "@twilio/flex-ui";
           if (length > 199 && at_least_one_worker_has_a_location) { 
             
             // Build the expression for search
-            expression = ""
+            expression = "";
             var groupOfThirty = [];
             var groupOfThirtyExpression = [];              
             for (let i=0; i<workerLocationList.length/29; i++){               
@@ -66,7 +66,7 @@ export const locationFilter = () => {
         title: 'Location',
         fieldName: 'location',
         type: 'multiValue',
-        options: workerLocationList.sort().map(value => ({
+        options: workerLocationList.sort(function (a, b){return a.toLowerCase().localeCompare(b.toLowerCase());}).map(value => ({
           value,
           label: value,
           default: false

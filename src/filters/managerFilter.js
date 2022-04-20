@@ -29,7 +29,7 @@ import * as Flex from "@twilio/flex-ui";
           if (length > 199 && at_least_one_worker_has_a_manager) { 
             
             // Build the expression for search
-            expression = ""
+            expression = "";
             var groupOfThirty = [];
             var groupOfThirtyExpression = [];        
             for (let i=0; i<managerList.length/29; i++){               
@@ -64,7 +64,7 @@ export const managerFilter = () => {
         title: 'Manager',
         fieldName: 'manager',
         type: 'multiValue',
-        options: managerList.sort().map(value => ({
+        options: managerList.sort(function (a, b){return a.toLowerCase().localeCompare(b.toLowerCase());}).map(value => ({
           value,
           label: value,
           default: false

@@ -5,15 +5,14 @@ import {
   skillsFilter,
   locationFilter
 } from './filters';
-// var syncClient = require('twilio-sync')
 import {managerFilterList} from './filters/managerFilter'
 import {locationFilterList} from './filters/locationFilter'
 
 
 
-const PLUGIN_NAME = 'RealtimeQueueViewFilterPlugin';
+const PLUGIN_NAME = 'TeamViewFilters';
 
-export default class RealtimeQueueViewFilterPlugin extends FlexPlugin {
+export default class TeamViewFilters extends FlexPlugin {
   constructor() {
     super(PLUGIN_NAME);
   }

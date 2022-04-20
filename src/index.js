@@ -1,5 +1,5 @@
 import * as FlexPlugin from '@twilio/flex-plugin';
 
-import RealtimeQueueViewFilterPlugin from './RealtimeQueueViewFilterPlugin';
+import TeamViewFilters from './TeamViewFilters';
 
-FlexPlugin.loadPlugin(RealtimeQueueViewFilterPlugin);
+FlexPlugin.loadPlugin(TeamViewFilters);

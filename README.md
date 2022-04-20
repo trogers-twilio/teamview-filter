@@ -36,7 +36,7 @@ https://github.com/cherylmj01/teamview-filter.git
 2. Go to the plugin directory
 
 ```bash
-cd plugin-realtimequeueview-filter
+cd plugin-TeamViewFilters
 ```
 
 3. Install the dependencies
