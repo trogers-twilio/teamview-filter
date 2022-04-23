@@ -6,7 +6,6 @@ import * as Flex from "@twilio/flex-ui";
 
   // only get the manager list
   export const managerFilterList = () => {
-   
     Flex.Manager.getInstance()
     .insightsClient.instantQuery("tr-worker")
     .then((q) => {
@@ -29,14 +28,14 @@ import * as Flex from "@twilio/flex-ui";
           if (length > 199 && at_least_one_worker_has_a_manager) { 
             
             // Build the expression for search
-            expression = "";
+            expression = 'data.attributes.manager CONTAINS "" ';
             var groupOfThirty = [];
             var groupOfThirtyExpression = [];        
             for (let i=0; i<managerList.length/29; i++){               
                 groupOfThirty.push(managerList.slice(i*29, 29*(i+1)).join(`','`));                
                 groupOfThirtyExpression.push(`and data.attributes.manager NOT_IN ['${groupOfThirty[i]}']`);
             }            
-            expression = groupOfThirtyExpression.join(' ').slice(4);
+            expression += groupOfThirtyExpression.join(' ').slice(4);
 
             // Run the search again
             q.search(expression).catch(() => {
@@ -46,7 +45,7 @@ import * as Flex from "@twilio/flex-ui";
           }        
         });
 
-        q.search("").catch(() => {
+        q.search('data.attributes.manager CONTAINS ""').catch(() => {
             error = "Invalid query" ;
             console.log('Error',error);
         });
