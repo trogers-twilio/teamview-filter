@@ -25,24 +25,27 @@ export default class TeamViewFilters extends FlexPlugin {
    * @param manager { import('@twilio/flex-ui').Manager }
    */
   async init(flex, manager) {
-    
+    const state = manager.store.getState();
+    const roles = state?.flex?.session?.ssoTokenPayload?.roles || [];
 
-    managerFilterList();
-    locationFilterList();
-
-
-    manager.updateConfig({
-      componentProps: {
-        TeamsView: {
-          filters: [
-            TeamsView.activitiesFilter,
-            skillsFilter,
-            managerFilter,
-            locationFilter
-          ]
+    if (roles.includes('admin') || roles.includes('supervisor')) {
+      managerFilterList();
+      locationFilterList();
+  
+  
+      manager.updateConfig({
+        componentProps: {
+          TeamsView: {
+            filters: [
+              TeamsView.activitiesFilter,
+              locationFilter,
+              managerFilter,
+              skillsFilter,
+            ]
+          }
         }
-      }
-    });
+      });
+    }
 
  
 
