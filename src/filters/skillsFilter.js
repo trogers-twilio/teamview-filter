@@ -1,5 +1,9 @@
 import { getSkills } from '../helper';
 
+const sortCaseInsensitive = function (a, b) {
+  return a.toLowerCase().localeCompare(b.toLowerCase());
+}
+
 export const skillsFilter = () => {
 
   const value = getSkills();
@@ -13,7 +17,7 @@ export const skillsFilter = () => {
     title: 'Skills',
     fieldName: 'skills',
     type: 'multiValue',
-    options: skillsArray.sort().map(value => ({
+    options: skillsArray.sort(sortCaseInsensitive).map(value => ({
       value,
       label: value,
       default: false
