@@ -35,7 +35,7 @@ export const managerFilterList = () => {
               groupOfThirty.push(managerList.slice(i*29, 29*(i+1)).join(`','`));                
               groupOfThirtyExpression.push(`and data.attributes.manager NOT_IN ['${groupOfThirty[i]}']`);
           }            
-          expression += groupOfThirtyExpression.join(' ').slice(4);
+          expression += groupOfThirtyExpression.join(' ');
 
           // Run the search again
           q.search(expression).catch(() => {
