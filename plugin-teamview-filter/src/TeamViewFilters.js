@@ -16,6 +16,8 @@ import {
 import registerNotifications from './notifications';
 import './listeners';
 
+import WorkersDataTableSort from './components/WorkersDataTableSort';
+
 
 
 const PLUGIN_NAME = 'TeamViewFilters';
@@ -77,6 +79,8 @@ export default class TeamViewFilters extends FlexPlugin {
           }
         />
       );
+
+      flex.Supervisor.TeamFiltersPanel.Content.add(<WorkersDataTableSort key='workers-data-table-sort' />, { sortOrder: 10 });
     }
 
  

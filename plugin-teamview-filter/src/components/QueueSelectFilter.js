@@ -56,9 +56,6 @@ class QueueSelectFilterClass extends React.Component {
   componentDidUpdate() {
     const { currentValue, selectedQueue } = this.props;
 
-    console.debug('QueueSelectFilter, state.selectedQueue:', this.state.selectedQueue);
-    console.debug('QueueSelectFilter, currentValue:', currentValue);
-
     if (this.state.selectedQueue?.value && !currentValue) {
       this._handleChange(this.state.selectedQueue);
     }
