@@ -8,7 +8,9 @@ import {
   locationFilter,
   locationFilterList,
   queueFilter,
-  queueFilterList
+  queueFilterList,
+  rolesFilter,
+  rolesFilterList
 } from './filters';
 
 import registerNotifications from './notifications';
@@ -40,6 +42,7 @@ export default class TeamViewFilters extends FlexPlugin {
       managerFilterList();
       locationFilterList();
       queueFilterList();
+      rolesFilterList();
   
       manager.updateConfig({
         componentProps: {
@@ -50,6 +53,7 @@ export default class TeamViewFilters extends FlexPlugin {
               managerFilter,
               skillsFilter,
               queueFilter,
+              rolesFilter
             ]
           }
         }
