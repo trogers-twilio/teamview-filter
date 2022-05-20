@@ -64,9 +64,13 @@ export default class TeamViewFilters extends FlexPlugin {
       );
       flex.WorkersDataTable.Content.add(
         <flex.ColumnDefinition
-          key="worker-manager"
-          header={"Manager"}
-          content={item => <div style={{ fontSize: '12px' }}>{item?.worker?.attributes?.manager}</div>}
+          key="worker-roles"
+          header={"Roles"}
+          content={item => <div style={{ fontSize: '12px' }}>{
+              Array.isArray(item?.worker?.attributes?.roles)
+              && item?.worker?.attributes?.roles?.join(', ')
+            }</div>
+          }
         />
       );
     }
