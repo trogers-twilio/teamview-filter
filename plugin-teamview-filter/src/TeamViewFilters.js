@@ -1,12 +1,18 @@
 import { FlexPlugin } from '@twilio/flex-plugin';
 import { TeamsView } from '@twilio/flex-ui';
+
 import {
   managerFilter,
+  managerFilterList,
   skillsFilter,
-  locationFilter
+  locationFilter,
+  locationFilterList,
+  queueFilter,
+  queueFilterList
 } from './filters';
-import {managerFilterList} from './filters/managerFilter'
-import {locationFilterList} from './filters/locationFilter'
+
+import registerNotifications from './notifications';
+import './listeners';
 
 
 
@@ -29,9 +35,11 @@ export default class TeamViewFilters extends FlexPlugin {
     const roles = state?.flex?.session?.ssoTokenPayload?.roles || [];
 
     if (roles.includes('admin') || roles.includes('supervisor')) {
+      registerNotifications(manager);
+
       managerFilterList();
       locationFilterList();
-  
+      queueFilterList();
   
       manager.updateConfig({
         componentProps: {
@@ -41,6 +49,7 @@ export default class TeamViewFilters extends FlexPlugin {
               locationFilter,
               managerFilter,
               skillsFilter,
+              queueFilter,
             ]
           }
         }

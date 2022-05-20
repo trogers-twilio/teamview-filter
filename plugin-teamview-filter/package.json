@@ -9,10 +9,11 @@
     "@twilio/flex-plugin-scripts": "5.0.5",
     "react": "16.5.2",
     "react-dom": "16.5.2",
-    "react-emotion": "9.2.12"
+    "react-emotion": "9.2.12",
+    "react-select": "^3.1.0"
   },
   "devDependencies": {
-    "@twilio/flex-ui": "^1",
+    "@twilio/flex-ui": "^1.30.2",
     "react-test-renderer": "16.5.2"
   }
 }
