@@ -54,6 +54,21 @@ export default class TeamViewFilters extends FlexPlugin {
           }
         }
       });
+
+      flex.WorkersDataTable.Content.add(
+        <flex.ColumnDefinition
+          key="worker-location"
+          header={"Location"}
+          content={item => <div style={{ fontSize: '12px' }}>{item?.worker?.attributes?.location}</div>}
+        />
+      );
+      flex.WorkersDataTable.Content.add(
+        <flex.ColumnDefinition
+          key="worker-manager"
+          header={"Manager"}
+          content={item => <div style={{ fontSize: '12px' }}>{item?.worker?.attributes?.manager}</div>}
+        />
+      );
     }
 
  
