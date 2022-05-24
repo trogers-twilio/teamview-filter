@@ -9,11 +9,16 @@ Twilio Flex Plugins allow you to customize the appearance and behavior of [Twili
 
 ## Plugin for customizing Teams View Filter
 
-This plugin allows you to add and customize filters for filtering on managers, skills, locations on Teams View dashboard. Please refer the screenshots below : 
+This plugin allows you to add and customize filters for filtering on managers, skills, locations, roles, and queue eligibility on Teams View dashboard. It also adds the Location and Roles worker attributes to the worker data table and adds the ability to sort on Activity Time, Agent Name, and Location. 
 
-![Plugin screenshot_1](https://github.com/cherylmj01/teamview-filter/blob/main/src/resources/locationFilter.png) 
-![Plugin screenshot_2](https://github.com/cherylmj01/teamview-filter/blob/main/src/resources/managerFilter.png) 
+Please refer to the screenshots below for examples: 
 
+![Screenshot Location Filter](resources/locationFilter.png) 
+![Screenshot Manager Filter](resources/managerFilter.png)
+![Screenshot Queue Eligibility Filter](resources/queueEligibilityFilter.png)
+![Screenshot Roles Filter](resources/rolesFilter.png)
+![Screenshot Agent Sort Options](resources/agentSortOptions.png)
+![Screenshot Worker Location and Roles Columns](resources/locationRolesColumns.png)
 
 ## Requirements
 
