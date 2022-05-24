@@ -49,7 +49,10 @@ Actions.addListener('beforeApplyListFilters', async (payload, abortFunction) => 
   });
 
   // if no queue filters return
-  if(!queueEligibilityFilter) return
+  if(!queueEligibilityFilter
+    || (Array.isArray(queueEligibilityFilter.values) && queueEligibilityFilter.values.length === 0)){
+    return;
+  }
 
   // create new filters by copying existing filters 
   // but remove any queue filter placeholders
@@ -84,16 +87,18 @@ Actions.addListener('beforeApplyListFilters', async (payload, abortFunction) => 
   // if the targetWorkers is 1==1 we can ignore it
   if(targetWorkers !== "1==1") {
     // assuming expressions are formatted as explained above
+    const containsORs = targetWorkers.toUpperCase().includes(" OR ");
+    // validate expression contains no OR'd statements
+    if (containsORs) {
+      Notifications.showNotification(TeamViewQueueFilterNotification.ErrorParsingQueueExpressionWithOR);
+      return;
+    }
+    
     const expressionComponents = targetWorkers.match(/((\b(?:\.)+\S+\b|\b(?:\S+)+\S+\b)(\s)+(HAS|==|EQ|!=|CONTAINS|IN|NOT IN)(\s)+(('|")\S+('|")))/gi)
-    const containsORs = targetWorkers.includes(" OR ");
-
-    // validate expressions have been parsed and that there are no OR'd statements
+    // validate expressions have been parsed
     if(!expressionComponents || expressionComponents.length === 0) {
       Notifications.showNotification(TeamViewQueueFilterNotification.ErrorParsingQueueExpression);
       return;
-    } else if (containsORs) {
-      Notifications.showNotification(TeamViewQueueFilterNotification.ErrorParsingQueueExpressionWithOR);
-      return
     }
 
     // for each expression break it down and create a filter

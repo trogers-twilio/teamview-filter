@@ -34,7 +34,7 @@ export default class TeamViewFilters extends FlexPlugin {
    * @param flex { typeof import('@twilio/flex-ui') }
    * @param manager { import('@twilio/flex-ui').Manager }
    */
-  async init(flex, manager) {
+  init(flex, manager) {
     const state = manager.store.getState();
     const roles = state?.flex?.session?.ssoTokenPayload?.roles || [];
 
