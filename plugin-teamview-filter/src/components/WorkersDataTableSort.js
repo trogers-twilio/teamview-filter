@@ -61,7 +61,7 @@ class WorkersDataTableSort extends React.Component {
   }
 
   sortByActivityTime = (isAscending) => {
-    WorkersDataTable.defaultProps.initialCompareFunction = (workerA, workerB, taskA, taskB) => {
+    WorkersDataTable.defaultProps.sortWorkers = (workerA, workerB) => {
       return workerA.source?.date_activity_changed < workerB.source?.date_activity_changed
         ? (isAscending ? 1 : -1)
         : workerA.source?.date_activity_changed > workerB.source?.date_activity_changed
@@ -72,7 +72,8 @@ class WorkersDataTableSort extends React.Component {
   }
 
   sortByAgentName = (isAscending) => {
-    WorkersDataTable.defaultProps.initialCompareFunction = (workerA, workerB, taskA, taskB) => {
+    WorkersDataTable.defaultProps.sortWorkers = (workerA, workerB) => {
+      console.debug('sortByAgentName', workerA, workerB);
       const workerAName = workerA.fullName || workerA.name || "";
       const workerBName = workerB.fullName || workerB.name || "";
 
@@ -84,7 +85,7 @@ class WorkersDataTableSort extends React.Component {
   }
 
   sortByLocation = (isAscending) => {
-    WorkersDataTable.defaultProps.initialCompareFunction = (workerA, workerB, taskA, taskB) => {
+    WorkersDataTable.defaultProps.sortWorkers = (workerA, workerB) => {
       const workerALocation = workerA.attributes.location || '';
       const workerBLocation = workerB.attributes.location || '';
       const workerAName = workerA.fullName || workerA.name || "";

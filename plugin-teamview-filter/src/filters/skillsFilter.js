@@ -9,7 +9,10 @@ export const skillsFilter = () => {
   const value = getSkills();
 
   const skillsArray = []
-  value.taskrouter_skills.forEach(element => skillsArray.push(element.name));
+
+  if (Array.isArray(value.taskrouter_skills)) {
+    value.taskrouter_skills.forEach(element => skillsArray.push(element.name));
+  }
 
 
   return{

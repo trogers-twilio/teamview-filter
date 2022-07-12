@@ -1,5 +1,4 @@
 import { FlexPlugin } from '@twilio/flex-plugin';
-import { TeamsView } from '@twilio/flex-ui';
 
 import {
   managerFilter,
@@ -45,21 +44,15 @@ export default class TeamViewFilters extends FlexPlugin {
       locationFilterList();
       queueFilterList();
       rolesFilterList();
-  
-      manager.updateConfig({
-        componentProps: {
-          TeamsView: {
-            filters: [
-              TeamsView.activitiesFilter,
-              locationFilter,
-              managerFilter,
-              skillsFilter,
-              queueFilter,
-              rolesFilter
-            ]
-          }
-        }
-      });
+
+      flex.TeamsView.defaultProps.filters = [
+        flex.TeamsView.activitiesFilter,
+        locationFilter,
+        managerFilter,
+        skillsFilter,
+        queueFilter,
+        rolesFilter
+      ];
 
       flex.WorkersDataTable.Content.add(
         <flex.ColumnDefinition
@@ -80,7 +73,21 @@ export default class TeamViewFilters extends FlexPlugin {
         />
       );
 
-      flex.Supervisor.TeamFiltersPanel.Content.add(<WorkersDataTableSort key='workers-data-table-sort' />, { sortOrder: 10 });
+      //TODO: Remove this test code, troubleshooting "sortWorkers" function
+      flex.WorkersDataTable.defaultProps.sortWorkers = (workerA, workerB) => {
+        let isAscending = false;
+
+        console.debug('initSort', workerA, workerB);
+        const workerAName = workerA.fullName || workerA.name || "";
+        const workerBName = workerB.fullName || workerB.name || "";
+  
+        return isAscending
+          ? workerAName.toLowerCase().localeCompare(workerBName.toLowerCase())
+          : workerBName.toLowerCase().localeCompare(workerAName.toLowerCase());
+      }
+      //End of test code
+
+      flex.Supervisor.TeamFiltersPanel.Content.add(<WorkersDataTableSort key='workers-data-table-sort' />, { sortOrder: 0 });
     }
 
  
