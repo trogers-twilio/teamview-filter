@@ -1,4 +1,7 @@
 import * as Flex from "@twilio/flex-ui";
+import React from 'react';
+
+import { MultiSelectFilter, MultiSelectFilterLabel } from '../components/MultiSelectFilter';
 
 var managerList = [];
 
@@ -59,23 +62,20 @@ const sortCaseInsensitive = function (a, b) {
 }
 
 export const managerFilter = () => {
-
-    return{
-        id: 'data.attributes.manager',
-        title: 'Manager',
-        fieldName: 'manager',
-        type: 'multiValue',
-        options: managerList.sort(sortCaseInsensitive).map(value => ({
-          value,
-          label: value,
-          default: false
-        })),
-        condition: 'IN'
-      };
-
+  return{
+      id: 'data.attributes.manager',
+      title: 'Manager',
+      fieldName: 'manager',
+      options: managerList.sort(sortCaseInsensitive).map(value => ({
+        value,
+        label: value,
+        default: false
+      })),
+      customStructure: {
+        field: <MultiSelectFilter isMultiSelect={true} />,
+        label: <MultiSelectFilterLabel />
+      },
+      condition: 'IN'
+    };
 };
-
-
-  
-
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from 'react-select';
 import styled from 'react-emotion';
-import { Actions, WorkersDataTable } from '@twilio/flex-ui'
+import { Actions, WorkersDataTable } from '@twilio/flex-ui';
 
 const options = [
   { value: 'activityTimeAsc', label: 'Activity Time, Ascending'},

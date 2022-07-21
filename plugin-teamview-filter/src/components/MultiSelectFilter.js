@@ -1,9 +1,8 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import styled from 'react-emotion';
 import Select from 'react-select';
 
-import { setSelectedQueue } from '../state';
+import { isArraysEqual } from '../helper';
 
 // Setting height to the max allowed for any individual filter
 // to provide as much room as possible to the options list
@@ -13,17 +12,10 @@ const FilterContainer = styled('div')`
   margin-right: 16px;
 `;
 
-const mapStateToProps = (state) => {
-  return {
-    selectedQueue: state?.flex?.view?.componentViewStates?.queueFilter?.selectedQueue
-  }
-}
-
-class QueueSelectFilterClass extends React.Component {
+export class MultiSelectFilter extends React.Component {
   state = {
-    selectedQueue: undefined
+    selectedOptions: []
   }
-
   elementId = `${this.props.name}-select`;
 
   selectStyles = {
@@ -34,13 +26,13 @@ class QueueSelectFilterClass extends React.Component {
     // could be confusing for the user
     valueContainer: (provided) => ({
       ...provided,
-      maxHeight: 50,
+      maxHeight: 210,
       overflow: 'auto',
     }),
     control: (provided) => ({
       ...provided,
       borderRadius: 0,
-      maxHeight: 53
+      maxHeight: 213
     }),
     // Setting maxHeight to 150px to ensure that its height along with
     // the input container's height at two lines of selected options
@@ -58,15 +50,20 @@ class QueueSelectFilterClass extends React.Component {
   componentDidUpdate() {
     const { currentValue } = this.props;
 
-    if (this.props.selectedQueue && !currentValue) {
-      this._handleChange(this.props.selectedQueue);
+    if (currentValue === undefined &&
+      (!this.state.selectedOptions ||
+      this.state.selectedOptions.length > 0)
+    ) {
+      this.setState({ selectedOptions: [] });
     }
   }
 
   _handleChange = (e, v) => {
+    this.setState({ selectedOptions: e });
+
     const newValue = Array.isArray(e) ? e.map(o => o.value) : [];
-    this.props.handleChange(e);
-    setSelectedQueue(e);
+    this.props.handleChange(newValue);
+
     const valueContainer = document.querySelector(`.${this.props.name}__value-container`);
     // Without setting scrollTop, the most recently selected option can be hidden
     // until the user manually scrolls to the bottom of the value containers
@@ -77,7 +74,7 @@ class QueueSelectFilterClass extends React.Component {
     const {
       isMultiSelect,
       name,
-      options 
+      options
     } = this.props;
 
     const isMulti = isMultiSelect === undefined ? true : isMultiSelect;
@@ -92,20 +89,21 @@ class QueueSelectFilterClass extends React.Component {
           options={options}
           onChange={this._handleChange}
           styles={this.selectStyles}
-          value={this.props.selectedQueue}
+          value={this.state.selectedOptions}
+          menuShouldScrollIntoView
+          menuPortalTarget={document.body}
+          closeMenuOnSelect={false}
+          noOptionsMessage={() => null}
+          menuPlacement="auto"
         />
       </FilterContainer>
     )
   }
 };
 
-export const QueueSelectFilter = connect(mapStateToProps)(QueueSelectFilterClass);
-
-export const QueueSelectFilterLabel = connect(mapStateToProps)(({ currentValue, selectedQueue }) => {
+export const MultiSelectFilterLabel = ({ currentValue }) => {
   let label = 'Any';
-  // if (selectedQueue && selectedQueue?.label) {
-  //   label = selectedQueue.label;
-  // }
+
   if (currentValue && currentValue?.label) {
     label = currentValue.label;
   }
@@ -116,5 +114,5 @@ export const QueueSelectFilterLabel = connect(mapStateToProps)(({ currentValue, 
     label = `${currentValue.length} selected`;
   }
   return (<>{label}</>);
-});
+};
 

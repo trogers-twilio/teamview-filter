@@ -1,4 +1,7 @@
 import * as Flex from "@twilio/flex-ui";
+import React from 'react';
+
+import { MultiSelectFilter, MultiSelectFilterLabel } from '../components/MultiSelectFilter';
 
 var workerLocationList = [];
 
@@ -51,10 +54,7 @@ export const locationFilterList = () => {
           error = "Invalid query" ;
           console.log('Error',error);
       });
-  
-      
   });
-  
 }
 
 const sortCaseInsensitive = function (a, b) {
@@ -62,20 +62,21 @@ const sortCaseInsensitive = function (a, b) {
 }
 
 export const locationFilter = () => {
-
-    return{
-        id: 'data.attributes.location',
-        title: 'Location',
-        fieldName: 'location',
-        type: 'multiValue',
-        options: workerLocationList.sort(sortCaseInsensitive).map(value => ({
-          value,
-          label: value,
-          default: false
-        })),
-        condition: 'IN'
-      };
-
+  return{
+      id: 'data.attributes.location',
+      title: 'Location',
+      fieldName: 'location',
+      options: workerLocationList.sort(sortCaseInsensitive).map(value => ({
+        value,
+        label: value,
+        default: false
+      })),
+      customStructure: {
+        field: <MultiSelectFilter isMultiSelect={true} />,
+        label: <MultiSelectFilterLabel />
+      },
+      condition: 'IN'
+    };
 };
 
 

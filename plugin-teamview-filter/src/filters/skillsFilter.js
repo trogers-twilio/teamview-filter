@@ -1,3 +1,6 @@
+import React from 'react';
+
+import { MultiSelectFilter, MultiSelectFilterLabel } from '../components/MultiSelectFilter';
 import { getSkills } from '../helper';
 
 const sortCaseInsensitive = function (a, b) {
@@ -19,12 +22,15 @@ export const skillsFilter = () => {
     id: 'data.attributes.routing.skills',
     title: 'Skills',
     fieldName: 'skills',
-    type: 'multiValue',
     options: skillsArray.sort(sortCaseInsensitive).map(value => ({
       value,
       label: value,
       default: false
     })),
+    customStructure: {
+      field: <MultiSelectFilter isMultiSelect={true} />,
+      label: <MultiSelectFilterLabel />
+    },
     condition: 'IN'
   };
 

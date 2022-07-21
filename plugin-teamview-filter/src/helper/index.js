@@ -9,6 +9,18 @@ export const getSkills = () => {
   return ({taskrouter_skills});
 };
 
+export const getActivities = () => {
+  const state = manager.store.getState();
+  return state?.flex?.worker?.activities;
+};
+
+export const isArraysEqual = (a, b) => {
+  return Array.isArray(a) &&
+    Array.isArray(b) &&
+    a.length === b.length &&
+    a.every((val, index) => val === b[index]);
+};
+
 export const fetchJsonWithReject = (url, config, attempts = 0) => {
   return fetch(url, config)
     .then(response => {
@@ -34,5 +46,5 @@ export const fetchJsonWithReject = (url, config, attempts = 0) => {
         throw error;
       }
     });
-}
+};
 
