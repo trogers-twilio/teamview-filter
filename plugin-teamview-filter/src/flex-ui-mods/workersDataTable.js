@@ -12,6 +12,20 @@ export const modWorkersDataTable = () => {
       || workerAName.localeCompare(workerBName);
   };
 
+  const sortByRoles = (a, b) => {
+    let workerARoles = a.worker.attributes.roles;
+    workerARoles = Array.isArray(workerARoles) ? workerARoles.join(',').toLowerCase() : "";
+
+    let workerBRoles = b.worker.attributes.roles;
+    workerBRoles = Array.isArray(workerBRoles) ? workerBRoles.join(',').toLowerCase() : "";
+
+    const workerAName = a.worker.fullName?.toLowerCase() || a.worker.name?.toLowerCase() || "";
+    const workerBName = b.worker.fullName?.toLowerCase() || b.worker.name?.toLowerCase() || "";
+
+    return workerARoles.localeCompare(workerBRoles)
+      || workerAName.localeCompare(workerBName);
+  };
+
   const sortByActivityDuration = (a, b) => {
     return a.worker.source?.date_activity_changed < b.worker.source?.date_activity_changed
       ? 1
@@ -38,7 +52,11 @@ export const modWorkersDataTable = () => {
       }
     });
 
-    return longestTaskB?.dateUpdated - longestTaskA?.dateUpdated;
+    return longestTaskA === undefined
+      ? -1
+      : longestTaskB === undefined
+        ? 1
+        : longestTaskB?.dateUpdated - longestTaskA?.dateUpdated;
   };
 
   WorkersDataTable.Content.add(
@@ -66,6 +84,7 @@ export const modWorkersDataTable = () => {
           && item?.worker?.attributes?.roles?.join(', ')
         }</div>
       }
+      sortingFn={sortByRoles}
     />
   );
 

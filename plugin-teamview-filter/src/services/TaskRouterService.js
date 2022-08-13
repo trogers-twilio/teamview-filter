@@ -7,7 +7,7 @@ let queues = null
 class TaskRouterService {
   manager = Manager.getInstance();
 
-	serverlessDomain = process.env.REACT_APP_SERVERLESS_DOMAIN;
+	serverlessDomain = this.manager.serviceConfiguration.ui_attributes.domainName;
 
 	buildBody(encodedParams) {
     return Object.keys(encodedParams).reduce((result, paramName, idx) => {
